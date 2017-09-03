@@ -46,7 +46,7 @@ class FoodDataParser:
         for row, first_column in self.get_valid_cell_rows():
             cell_pattern = r'([\w ]+)([0-9]+)$'
             column_data = re.compile(cell_pattern).match(first_column.strip())
-            
+
             if column_data is None and not self.data.cell_value(rowx=row, colx=1) and row > 0:
                 sub_column_name = first_column
                 continue
@@ -69,7 +69,7 @@ class FoodDataParser:
             if sources:
                 return sources.groups()[0]
 
-    def parse(self, xlsx_file):
+    def __call__(self, xlsx_file):
         self.data = xlrd.open_workbook(xlsx_file)
         self.data = self.data.sheet_by_index(0)
 

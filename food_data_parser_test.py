@@ -16,15 +16,19 @@ class TestFoodDataParser(unittest.TestCase):
         self.foo_data = self.food_data_files[0]
 
         self.parser = FoodDataParser()
-        self.data = self.parser.parse(self.foo_data)
+        self.data = self.parser(self.foo_data)
 
     def test_parses_all_data(self):
         for filename in self.food_data_files:
 
-            data = self.parser.parse(filename)
+            data = self.parser(filename)
             variants_count = len(data['variants'])
 
             self.assertTrue(variants_count > 0)
 
     def test_creates_proper_data_structure(self):
         self.assertTrue({'name', 'variants', 'sources'} == self.data.keys())
+
+    def test_parses_name(self):
+        data = self.parser(FOOD_DATA_PATH + 'apples.xlsx')
+        self.assertTrue(data['name'].casefold() == 'apples')
