@@ -16,12 +16,11 @@ class TestFoodDataParser(unittest.TestCase):
         self.foo_data = self.food_data_files[0]
 
         self.parser = FoodDataParser()
-        self.data = self.parser(self.foo_data)
+        self.data = self.parser(open(self.foo_data, 'rb'))
 
     def test_parses_all_data(self):
         for filename in self.food_data_files:
-
-            data = self.parser(filename)
+            data = self.parser(open(filename, 'rb'))
             variants_count = len(data['variants'])
 
             self.assertTrue(variants_count > 0)
@@ -30,5 +29,5 @@ class TestFoodDataParser(unittest.TestCase):
         self.assertTrue({'name', 'variants', 'sources'} == self.data.keys())
 
     def test_parses_name(self):
-        data = self.parser(FOOD_DATA_PATH + 'apples.xlsx')
+        data = self.parser(open(FOOD_DATA_PATH + 'apples.xlsx', 'rb'))
         self.assertTrue(data['name'].casefold() == 'apples')

@@ -51,7 +51,6 @@ class FoodDataParser:
                 sub_column_name = first_column
                 continue
             elif column_data is None:
-                print('FUCKITY SHIT')
                 continue
 
             column_info = column_data.groups()
@@ -69,8 +68,9 @@ class FoodDataParser:
             if sources:
                 return sources.groups()[0]
 
-    def __call__(self, xlsx_file):
-        self.data = xlrd.open_workbook(xlsx_file)
+    def __call__(self, _file):
+        file_data = _file.read() if hasattr(_file, 'read') else _file
+        self.data = xlrd.open_workbook(file_contents=file_data)
         self.data = self.data.sheet_by_index(0)
 
         food_data = dict()
