@@ -1,5 +1,6 @@
 import unittest
 import re
+import json
 
 from food_data_scraper import FoodDataScraper
 
@@ -22,6 +23,7 @@ class TestFoodDataScraper(unittest.TestCase):
         data = self.scraper.get_xlsx_data(self.scraper.urls[0])
         self.assertTrue(data['name'] == 'Apples')
 
-    @FoodDataScraper.for_parsed_files
-    def test_scraper_decorator(self, food_item):
-        print(food_item)
+    # @FoodDataScraper.for_parsed_files
+    # def test_scraper_decorator(self, food_item):
+    #     with open('x.log', 'a') as log:
+    #         log.write(json.dumps(food_item))
