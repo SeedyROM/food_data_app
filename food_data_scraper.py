@@ -45,6 +45,9 @@ class FoodDataScraper:
         def wrapped(self, *args, **kwargs):
             scraper = FoodDataScraper()
             for url in scraper.urls:
-                f(self, scraper.get_xlsx_data(url), *args, **kwargs)
+                try:
+                    f(self, scraper.get_xlsx_data(url), *args, **kwargs)
+                except BaseException as e:
+                    print(f'An error occured file parsing file {url}:\n {e}')
 
         return wrapped
